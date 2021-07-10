@@ -8,8 +8,12 @@ function NavBar() {
       <Navbar expand="lg">
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto margin-left">
-            <Nav.Link href="#CryptoCurrencies" className="margin-left-right">
+          <Nav className="mr-auto">
+            <Nav.Link
+              href="#CryptoCurrencies"
+              className="margin-right"
+              style={{ paddingLeft: "0px" }}
+            >
               CryptoCurrencies
             </Nav.Link>
             <Nav.Link href="#DeFi" className="margin-left-right">
@@ -22,8 +26,9 @@ function NavBar() {
             <Navbar.Brand
               href="#CryptoCurrencies"
               className="margin-left-right"
+              style={{ paddingTop: "0px" }}
             >
-              CRYPTO NUMS
+              <img src="./images/logo.png" height={50} alt="logo.png" />
             </Navbar.Brand>
 
             <Nav.Link href="#Exchanges" className="margin-left-right">

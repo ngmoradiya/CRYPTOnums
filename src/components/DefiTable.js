@@ -1,22 +1,32 @@
-import React from "react";
+import axios from "../axios";
+import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 
 function DefiTable() {
-  var heading = ["#", "Name", "Chain", "Category", "Locked(USD)", "1Day%"];
-  var data = [
-    ["1", "Aave", "MultiChain", "Leading", "$10.73 B", "-9.35%"],
-    ["2", "Aave", "MultiChain", "Leading", "$10.73 B", "-9.35%"],
-    ["3", "Aave", "MultiChain", "Leading", "$10.73 B", "-9.35%"],
-    ["4", "Aave", "MultiChain", "Leading", "$10.73 B", "-9.35%"],
-    ["5", "Aave", "MultiChain", "Leading", "$10.73 B", "-9.35%"],
-  ];
+  const [tableData, setTableData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("protocols/")
+      .then((data) => setTableData(data.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  const heading = ["#", "Name", "Chain", "Category", "Locked(USD)", "1Day%"];
+
   const title = (item) => <th>{item}</th>;
-  const rdata = (d, i) => <td key={i}>{d}</td>;
-  const tdata = (t) => (
+
+  const tdata = (t, i) => (
     <tr className="box-shadow-effect" style={{ marginBottom: "5px" }}>
-      {t.map(rdata)}
+      <td>{i + 1}</td>
+      <td>{t.name ? t.name : "NIL"}</td>
+      <td>{t.chain ? t.chain : "NIL"}</td>
+      <td>{t.category ? t.category : "NIL"}</td>
+      <td>{t.tvl ? t.tvl : "X"}</td>
+      <td>NIL</td>
     </tr>
   );
+
   return (
     <div style={{ overflow: "auto", paddingTop: "10px" }}>
       <Table style={{ backgroundColor: "white" }}>
@@ -24,7 +34,7 @@ function DefiTable() {
           <tr>{heading.map(title)}</tr>
         </thead>
         <br />
-        <tbody>{data.map(tdata)}</tbody>
+        {tableData.length > 0 ? <tbody>{tableData.map(tdata)}</tbody> : null}
       </Table>
     </div>
   );
