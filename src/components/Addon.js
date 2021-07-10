@@ -10,13 +10,13 @@ function Addon() {
           <div className="row">
             <div className="col-md-10">
               <Card.Text>
-                <p style={{ fontSize: "20px", marginBottom: "-2px" }}>
-                  &emsp;Discover why traders are choosing BTC2X-FLI
+                <p style={{ marginBottom: "-2px" }}>
+                  Discover why traders are choosing BTC2X-FLI
                 </p>
               </Card.Text>
             </div>
             <div className="col-md-2">
-              <h4 style={{ color: "#f0ab0a" }}>Learn more</h4>
+              <h6 style={{ color: "#f0ab0a" }}>Learn more</h6>
             </div>
           </div>
         </Card.Body>
