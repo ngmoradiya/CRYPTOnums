@@ -1,17 +1,36 @@
-import React from "react";
+import React,{useState} from "react";
 import "./style.css";
 import { Card } from "react-bootstrap";
 import Table from "./DefiTable";
+import {useData} from "../contexts/globalState"
 
 function Category() {
+  const {setCategory} = useData();
+  const [isSelected,setSelected] = useState({boolean:false,category:""});
+const selectHandler = (category)=>
+{
+  if(!isSelected.boolean)
+  {
+    setCategory(category)
+    setSelected({boolean:true,category:category})
+  }
+  else
+  {
+    setCategory("")
+    setSelected({boolean:false,category:category})
+  }
+  
+
+}
   return (
+    <>
     <div className="row g-2">
       <div className="col-sm-6">
         <div className="row g-2">
           <div className="col-sm-3">
             <Card className="card-item-center">
               <Card.Body style={{ padding: "7px 5px 3px 5px" }}>
-                <h6>Lending</h6>
+                <h6  onClick={()=>selectHandler("Lending")}>Lending</h6>
               </Card.Body>
             </Card>
           </div>
@@ -19,7 +38,7 @@ function Category() {
             <Card className="card-item-center">
               <Card.Body style={{ padding: "7px 5px 3px 5px" }}>
                 <Card.Text>
-                  <h6>Dexes</h6>
+                  <h6 onClick={()=>selectHandler("Dexes")}>Dexes</h6>
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -28,7 +47,7 @@ function Category() {
             <Card className="card-item-center">
               <Card.Body style={{ padding: "7px 5px 3px 5px" }}>
                 <Card.Text>
-                  <h6>Derivatives</h6>
+                  <h6 onClick={()=>selectHandler("Derivatives")}>Derivatives</h6>
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -37,7 +56,7 @@ function Category() {
             <Card className="card-item-center">
               <Card.Body style={{ padding: "7px 5px 3px 5px" }}>
                 <Card.Text>
-                  <h6>Payments</h6>
+                  <h6 onClick={()=>selectHandler("Payments")}>Payments</h6>
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -50,22 +69,23 @@ function Category() {
             <Card className="card-item-center">
               <Card.Body style={{ padding: "7px 5px 3px 5px" }}>
                 <Card.Text>
-                  <h6>Assets</h6>
+                  <h6 onClick={()=>selectHandler("Assets")}>Assets</h6>
                 </Card.Text>
               </Card.Body>
             </Card>
           </div>
-          <div className="col-sm-9">
+          {/* <div className="col-sm-9">
             <input
               type="text"
               placeholder="  Search"
               className="inputTag"
             ></input>
-          </div>
+          </div> */}
         </div>
       </div>
       <Table />
     </div>
+    </>
   );
 }
 

@@ -9,12 +9,15 @@ function Graph() {
   useEffect(() => {
     axios
       .get("chart/")
-      .then((data) => setGraphData(data.data))
+      .then((data) => {
+       console.log(data.data)
+        setGraphData(data.data)})
       .catch((err) => console.log(err));
   }, []);
-
+console.log(graphData.map((d) => d.date.split(",")[0].split("/")[2]))
+// graphData.map((d) => (d.date ? d.date.split(",")[0] : "1/1/2020"))
   const data = {
-    labels: graphData.map((d) => (d.date ? d.date.split(",")[0] : "1/1/2020")),
+    labels:graphData.map((d) => d.date.split(",")[0].split("/")[2]) ,
     datasets: [
       {
         label: "Defi",
