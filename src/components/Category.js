@@ -9,7 +9,7 @@ function Category() {
   const [isSelected,setSelected] = useState({boolean:false,cate:""});
 const selectHandler = (category)=>
 {
-  console.log(isSelected.boolean,isSelected.cate )
+  
   if(isSelected.boolean && category===isSelected.cate)
   { 
   setCategory("")
@@ -25,7 +25,7 @@ const selectHandler = (category)=>
 
 }
 
-console.log(category)
+
   return (
     <>
     <div className="row g-2">

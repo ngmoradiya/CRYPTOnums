@@ -99,7 +99,7 @@ function DefiTable() {
      setMax({name:dominance,percentage})
      setTotal(sum);
     }
-  },[tableData])
+  },[tableData,setMax,setTotal])
   useEffect(() => {
     axios
       .get("protocols/")
@@ -122,7 +122,7 @@ function DefiTable() {
        
         setTableData(finalSet)})
       .catch((err) => console.log(err));
-  }, []);
+  }, [setTableData]);
 
  
 

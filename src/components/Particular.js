@@ -32,7 +32,7 @@ import { Line } from "react-chartjs-2";
        
            
           
-    },[])
+    },[name])
 
 
 const gData = {
