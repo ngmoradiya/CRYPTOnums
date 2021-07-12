@@ -7,6 +7,7 @@ import { Line } from "react-chartjs-2";
      const {name} = useParams()
      const [data,setData] = useState([])
      const [graphData, setGraphData] = useState([]);
+     const [days,setDays] = useState(30)
   
     useEffect(()=>
     {
@@ -16,7 +17,7 @@ import { Line } from "react-chartjs-2";
             {
                 const {data} = await axios.get("https://mighty-sands-89627.herokuapp.com/protocol/"+name.toLowerCase())
                 setData(data)
-                console.log(data.tvl.map(item=>item.date))
+               
                 const settingData = data.tvl.map((item,index)=>({...item,date:new Date(data.tvl[index].date * 1000).toLocaleString()}))
                
                 setGraphData(settingData)
@@ -34,24 +35,31 @@ import { Line } from "react-chartjs-2";
     },[])
 
 
-console.log(graphData.map(d=>d))
-console.log(data)
 const gData = {
-    labels: graphData.map((d) => (d.date ? d.date.split(",")[0] : "1/1/2020")),
+    labels:graphData.map((d) => d.date.split(",")[0]).slice(graphData.length-days).map((item,index)=>
+    {
+     
+      return item
+    }),
     datasets: [
-      {
-        label: "Defi",
-        borderColor: "#1dcf94",
-        data: graphData.map((d) =>
-          d.totalLiquidityUSD ? d.totalLiquidityUSD / 1000 : 0
-        ),
-      },
-    ],
+        {
+          label: name,
+          borderColor: "#1dcf94",
+          data: graphData.map((d) =>
+            d.totalLiquidityUSD ? d.totalLiquidityUSD / 1000 : 0
+          ).slice(graphData.length-days),
+        },
+      ],
   };
 
-
+const inusd =Object.keys(data).length>0 && (data.tvl[data.tvl.length-1].totalLiquidityUSD/1000000000).toFixed(2);
     return (
         <div>
+         <div className="btn-days">
+            <button className={`btn-day ${days===30?"active":""} `} onClick={()=>setDays(30)}>30 Days</button>
+            <button className={`btn-day ${days===60?"active":""} `} onClick={()=>setDays(60)}>60 Days</button>
+            <button className={`btn-day ${days===365?"active":""} `} onClick={()=>setDays(365)}>1year</button>
+        </div>
            <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
                 <Line
                     data={gData}
@@ -60,109 +68,76 @@ const gData = {
                     options={{ responsive: true, maintainAspectRatio: false }}
                 />
             </div>
-            <div style={{display:"flex"}}>
+            <div className="statsBox" style={{display:"flex",margin:"20px 0"}}>
 
            
+            <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px",flex:"3" }} >
+                <h2>Key Statistics</h2>
+                <p>TOTAL VALUE LOCKED</p>
+                <div className="stats">
+                    <span>In USD</span>
+                    <span>{inusd}B</span>
+                </div>
+                <div className="stats">
+                    <span>In ETH</span>
+                    <span>30000</span>
+                </div>
+                <div className="stats">
+                    <span>In BTC</span>
+                    <span>789283773</span>
+                </div>
+                <div className="stats">
+                    <span>Category</span>
+                    <span>{data.category}</span>
+                </div>
+            </div>
+            <div style={{flex:"2"}}>
+                {/* <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
+                
+                </div>
+                <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
+                
+                </div> */}
+            </div>
+            </div>
             <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-                {/* <Line
-                    data={data}
-                    width={100}
-                    height={200}
-                    options={{ responsive: true, maintainAspectRatio: false }}
-                /> */}
-            </div>
-            <div>
-            <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-                {/* <Line
-                    data={data}
-                    width={100}
-                    height={200}
-                    options={{ responsive: true, maintainAspectRatio: false }}
-                /> */}
-            </div>
-            <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-                {/* <Line
-                    data={data}
-                    width={100}
-                    height={200}
-                    options={{ responsive: true, maintainAspectRatio: false }}
-                /> */}
-            </div>
-            </div>
-            </div>
-            <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-               What is {data?.name}?
+               <h1 style={{fontSize:"1.5rem",color:"#A78BFA"}}>What is {data?.name}?</h1>
                <p>
                    {data.description}
                </p>
 
             </div>
-            Trending in Lending
+            {/* Trending in Lending
             <div style={{display:"flex"}}>
 
            
             <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-                {/* <Line
-                    data={data}
-                    width={100}
-                    height={200}
-                    options={{ responsive: true, maintainAspectRatio: false }}
-                /> */}
+               
             </div>
             <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-                {/* <Line
-                    data={data}
-                    width={100}
-                    height={200}
-                    options={{ responsive: true, maintainAspectRatio: false }}
-                /> */}
+                
             </div>
             </div>
             <div style={{display:"flex"}}>
 
            
 <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-    {/* <Line
-        data={data}
-        width={100}
-        height={200}
-        options={{ responsive: true, maintainAspectRatio: false }}
-    /> */}
+   
 </div>
 <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-    {/* <Line
-        data={data}
-        width={100}
-        height={200}
-        options={{ responsive: true, maintainAspectRatio: false }}
-    /> */}
+  
 </div>
 </div>
             Aave historical stats
             <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-                {/* <Line
-                    data={data}
-                    width={100}
-                    height={200}
-                    options={{ responsive: true, maintainAspectRatio: false }}
-                /> */}
+              
             </div>
             <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-                {/* <Line
-                    data={data}
-                    width={100}
-                    height={200}
-                    options={{ responsive: true, maintainAspectRatio: false }}
-                /> */}
+               
             </div>
             <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-                {/* <Line
-                    data={data}
-                    width={100}
-                    height={200}
-                    options={{ responsive: true, maintainAspectRatio: false }}
-                /> */}
-            </div>
+               
+            </div> */}
         </div>
     )
 }

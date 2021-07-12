@@ -13,7 +13,7 @@ function Highlights() {
           <Card.Body>
             <Card.Title>Total Value Locked</Card.Title>
             <Card.Text>
-              <h1 style={{ color: "#5f1ec7" }}>$ {totalValue.toPrecision(4)} B</h1>
+              <h1 style={{ color: "#5f1ec7" }}>$ {totalValue.toFixed(2)} B</h1>
             </Card.Text>
           </Card.Body>
         </Card>

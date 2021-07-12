@@ -7,7 +7,7 @@ import {DataProvider} from "./contexts/globalState"
 import {BrowserRouter as Router} from "react-router-dom"
  
 ReactDOM.render(
-  <React.StrictMode>
+  
   <DataProvider>
     <Router>
 
@@ -15,6 +15,6 @@ ReactDOM.render(
       <App />
       </Router>
     </DataProvider>
-  </React.StrictMode>,
+  ,
   document.getElementById('root')
 );

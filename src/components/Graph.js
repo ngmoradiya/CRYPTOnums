@@ -5,26 +5,32 @@ import axios from "../axios";
 
 function Graph() {
   const [graphData, setGraphData] = useState([]);
+  const [days,setDays] = useState(30)
+
 
   useEffect(() => {
     axios
       .get("chart/")
       .then((data) => {
-       console.log(data.data)
+       
         setGraphData(data.data)})
       .catch((err) => console.log(err));
   }, []);
-console.log(graphData.map((d) => d.date.split(",")[0].split("/")[2]))
-// graphData.map((d) => (d.date ? d.date.split(",")[0] : "1/1/2020"))
+
+
   const data = {
-    labels:graphData.map((d) => d.date.split(",")[0].split("/")[2]) ,
+    labels:graphData.map((d) => d.date.split(",")[0]).slice(graphData.length-days).map((item,index)=>
+    {
+      
+      return item
+    }) ,
     datasets: [
       {
         label: "Defi",
         borderColor: "#1dcf94",
         data: graphData.map((d) =>
           d.totalLiquidityUSD ? d.totalLiquidityUSD / 1000 : 0
-        ),
+        ).slice(graphData.length-days),
       },
     ],
   };
@@ -39,10 +45,17 @@ console.log(graphData.map((d) => d.date.split(",")[0].split("/")[2]))
   //   ],
   // };
   return (
+    <>
+    <div className="btn-days">
+      <button className={`btn-day ${days===30?"active":""} `} onClick={()=>setDays(30)}>30 Days</button>
+      <button className={`btn-day ${days===60?"active":""} `} onClick={()=>setDays(60)}>60 Days</button>
+      <button className={`btn-day ${days===365?"active":""} `} onClick={()=>setDays(365)}>1year</button>
+    </div>
     <div
       className="box-shadow-effect"
       style={{ backgroundColor: "white", padding: "15px" }}
     >
+    
       <Line
         data={data}
         width={100}
@@ -50,6 +63,7 @@ console.log(graphData.map((d) => d.date.split(",")[0].split("/")[2]))
         options={{ responsive: true, maintainAspectRatio: false }}
       />
     </div>
+    </>
   );
 }
 

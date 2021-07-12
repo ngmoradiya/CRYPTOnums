@@ -5,58 +5,62 @@ import Table from "./DefiTable";
 import {useData} from "../contexts/globalState"
 
 function Category() {
-  const {setCategory} = useData();
-  const [isSelected,setSelected] = useState({boolean:false,category:""});
+  const {category,setCategory} = useData();
+  const [isSelected,setSelected] = useState({boolean:false,cate:""});
 const selectHandler = (category)=>
 {
-  if(!isSelected.boolean)
-  {
-    setCategory(category)
-    setSelected({boolean:true,category:category})
+  console.log(isSelected.boolean,isSelected.cate )
+  if(isSelected.boolean && category===isSelected.cate)
+  { 
+  setCategory("")
+  setSelected({boolean:false,cate:""})
   }
-  else
-  {
-    setCategory("")
-    setSelected({boolean:false,category:category})
-  }
-  
+ else
+ {
+  setCategory(category)
+  setSelected({boolean:true,cate:category})
+ }
+ 
+
 
 }
+
+console.log(category)
   return (
     <>
     <div className="row g-2">
       <div className="col-sm-6">
         <div className="row g-2">
           <div className="col-sm-3">
-            <Card className="card-item-center">
+            <Card style={{backgroundColor:category ==="Lending"?"#fdfff5":"white",cursor:"pointer"}} className="card-item-center">
               <Card.Body style={{ padding: "7px 5px 3px 5px" }}>
-                <h6  onClick={()=>selectHandler("Lending")}>Lending</h6>
+                <h6   onClick={()=>selectHandler("Lending")}>Lending</h6>
               </Card.Body>
             </Card>
           </div>
           <div className="col-sm-3">
-            <Card className="card-item-center">
+            <Card style={{backgroundColor:category ==="Dexes"?"#fdfff5":"white",cursor:"pointer"}} className="card-item-center">
               <Card.Body style={{ padding: "7px 5px 3px 5px" }}>
                 <Card.Text>
-                  <h6 onClick={()=>selectHandler("Dexes")}>Dexes</h6>
+                  <h6  onClick={()=>selectHandler("Dexes")}>Dexes</h6>
                 </Card.Text>
               </Card.Body>
             </Card>
           </div>
           <div className="col-sm-3">
-            <Card className="card-item-center">
+            <Card style={{backgroundColor:category ==="Derivatives"?"#fdfff5":"white",cursor:"pointer"}} className="card-item-center">
               <Card.Body style={{ padding: "7px 5px 3px 5px" }}>
                 <Card.Text>
-                  <h6 onClick={()=>selectHandler("Derivatives")}>Derivatives</h6>
+                  <h6  onClick={()=>selectHandler("Derivatives")}>Derivatives</h6>
                 </Card.Text>
               </Card.Body>
             </Card>
           </div>
           <div className="col-sm-3">
-            <Card className="card-item-center">
+            <Card style={{backgroundColor:category ==="Payments"?"#fdfff5":"white",cursor:"pointer"}} className="card-item-center">
               <Card.Body style={{ padding: "7px 5px 3px 5px" }}>
                 <Card.Text>
-                  <h6 onClick={()=>selectHandler("Payments")}>Payments</h6>
+                  <h6  onClick={()=>selectHandler("Payments")}>Payments</h6>
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -65,11 +69,11 @@ const selectHandler = (category)=>
       </div>
       <div className="col-sm-6">
         <div className="row">
-          <div className="col-sm-3 mb-2">
-            <Card className="card-item-center">
+          <div  className="col-sm-3 mb-2">
+            <Card style={{backgroundColor:category ==="Assets"?"#fdfff5":"white",cursor:"pointer"}} className="card-item-center">
               <Card.Body style={{ padding: "7px 5px 3px 5px" }}>
                 <Card.Text>
-                  <h6 onClick={()=>selectHandler("Assets")}>Assets</h6>
+                  <h6  onClick={()=>selectHandler("Assets")}>Assets</h6>
                 </Card.Text>
               </Card.Body>
             </Card>
