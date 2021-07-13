@@ -60,30 +60,18 @@ function DefiTable() {
         
         {
           let amount ;
-        //  let unit;
+        
          
           if(item.tvl!==0)
           {
 
           
    amount = item.tvl.substring(0,item.tvl.length-1);
-    //  unit = item.tvl.charAt(item.tvl.length-1)
+    
           }
           else amount=0
         
-            // if(unit==="B")
-            // {
-            
-            //   sum = sum+Number(amount)
-            // }
-            // else if(unit ==="M")
-            // {
-            //   amount = amount/1000;
-            //   sum=sum +amount;
-
-            // }
-            // else{
-            //   amount = amount/1000000;
+          
             // }
             sum = sum + Number(amount);
             if (max < Number(amount))
