@@ -2,13 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Graph from "./Graph";
-import { Line } from "react-chartjs-2";
-// import {useData} from "../contexts/globalState"
 const Particular = () => {
   const { name } = useParams();
   const [data, setData] = useState([]);
   const [graphData, setGraphData] = useState([]);
-  const [days, setDays] = useState(30);
 
   useEffect(() => {
     (async () => {
@@ -75,7 +72,7 @@ const Particular = () => {
         style={{ backgroundColor: "white", padding: "15px" }}
       >
         <h1 style={{ fontSize: "1.5rem", color: "#A78BFA" }}>
-          What is {data?.name}?
+          About {data?.name}?
         </h1>
         <p>{data.description}</p>
       </div>

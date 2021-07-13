@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./style.css";
 import { Line } from "react-chartjs-2";
-import axios from "../axios";
 
 function Graph({ graphData, label }) {
   const [days, setDays] = useState(30);
