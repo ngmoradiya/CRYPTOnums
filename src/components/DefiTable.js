@@ -69,6 +69,7 @@ function DefiTable() {
    amount = item.tvl.substring(0,item.tvl.length-1);
     //  unit = item.tvl.charAt(item.tvl.length-1)
           }
+          else amount=0
         
             // if(unit==="B")
             // {
