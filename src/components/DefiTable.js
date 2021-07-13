@@ -108,17 +108,27 @@ function DefiTable() {
         
        
         const setData = data.data.map((item,index)=>{
+          console.log(typeof item.tvl.toString())
+          if(item.tvl!==0)
+          {
           let amount = item.tvl.substring(0,item.tvl.length-1)
-          let tvl = item.tvl.includes("M")? (amount*0.001).toFixed(6)+"B" : item.tvl.includes("K") ?(amount*0.000001).toFixed(6)+"B": item.tvl
-        
-          return {...item,"sNo":index+1,"1day":"null",tvl}
+          console.log(typeof amount)
+          let tvl = item.tvl.includes("M")? (Number(amount)*0.001).toFixed(6)+"B" : item.tvl.includes("K") ?(Number(amount)*0.000001).toFixed(6)+"B": item.tvl
+        console.log(tvl)
+          return {...item,"sNo":index+1,"1day":"null",tvl:tvl}
+          }
+          return {...item,"sNo":index+1,"1day":"null"}
         
         })
+        console.log(setData,"hhh")
         const sortedData = setData.sort(function(a,b){
-          return b.tvl.substring(0,b.tvl.length-1) - a.tvl.substring(0,a.tvl.length-1);
+           if(a.tvl!==0 && b.tvl!==0)
+           return b.tvl.substring(0,b.tvl.length-1) - a.tvl.substring(0,a.tvl.length-1);
+           else return b-a
         })
-
+        
         const finalSet = sortedData.map((item,index)=>({...item,"sNo":index+1,"1day":"null"}))
+        
        
         setTableData(finalSet)})
       .catch((err) => console.log(err));
@@ -127,7 +137,7 @@ function DefiTable() {
  
 
 const filteredData = filterDataDataByCategory(tableData,category)
-
+console.log(tableData)
   return (
     <div style={{ overflow: "auto", paddingTop: "10px" }}>
      <MaterialTable  
