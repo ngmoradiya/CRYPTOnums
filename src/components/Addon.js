@@ -28,7 +28,7 @@ function Addon() {
               <div className="col-md-2"></div>
               <div className="col-md-7">
                 <Card.Title>
-                  <h2>DeFi Pulse Farmer Newsletter</h2>
+                  <h2> Cryptonums Newletter</h2>
                 </Card.Title>
                 <Card.Text>
                   <p style={{ fontSize: "12px", marginBottom: "0px" }}>

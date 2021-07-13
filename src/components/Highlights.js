@@ -1,8 +1,11 @@
 import React from "react";
 import "./style.css";
 import { Card } from "react-bootstrap";
+import {useData} from "../contexts/globalState"
 
 function Highlights() {
+  const {totalValue,maxDetails}= useData();
+  // console.log(state.totalValue,"aa gaya")
   return (
     <div className="row">
       <div className="col-md-4 mb-2">
@@ -10,7 +13,7 @@ function Highlights() {
           <Card.Body>
             <Card.Title>Total Value Locked</Card.Title>
             <Card.Text>
-              <h1 style={{ color: "#5f1ec7" }}>$ 56.52 B</h1>
+              <h1 style={{ color: "#5f1ec7" }}>$ {totalValue.toFixed(2)} B</h1>
             </Card.Text>
           </Card.Body>
         </Card>
@@ -18,9 +21,9 @@ function Highlights() {
       <div className="col-md-4 mb-2">
         <Card className="card-item-center">
           <Card.Body>
-            <Card.Title>Aave Dominance</Card.Title>
+            <Card.Title>{maxDetails.name} Dominance</Card.Title>
             <Card.Text>
-              <h1 style={{ color: "#1ec7c7" }}> 16.10 %</h1>
+              <h1 style={{ color: "#1ec7c7" }}> {maxDetails.percentage} %</h1>
             </Card.Text>
           </Card.Body>
         </Card>
