@@ -1,10 +1,21 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import axios from "../axios";
 import Highlights from "./Highlights";
 import Category from "./Category";
 import Graph from "./Graph";
 
 function Main() {
+  const [graphData, setGraphData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("chart/")
+      .then((data) => {
+        setGraphData(data.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <>
       <div className="container" style={{ paddingBottom: "20px" }}>
@@ -14,7 +25,7 @@ function Main() {
           the trend better
         </p>
         <Highlights />
-        <Graph />
+        <Graph graphData={graphData} label="Defi" />
         <Category />
       </div>
     </>

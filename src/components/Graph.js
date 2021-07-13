@@ -3,18 +3,8 @@ import "./style.css";
 import { Line } from "react-chartjs-2";
 import axios from "../axios";
 
-function Graph() {
-  const [graphData, setGraphData] = useState([]);
+function Graph({ graphData, label }) {
   const [days, setDays] = useState(30);
-
-  useEffect(() => {
-    axios
-      .get("chart/")
-      .then((data) => {
-        setGraphData(data.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
 
   const data = {
     labels: graphData
@@ -22,7 +12,7 @@ function Graph() {
       .slice(graphData.length - days),
     datasets: [
       {
-        label: "Defi",
+        label: label,
         borderColor: "#1dcf94",
         data: graphData
           .map((d) => (d.totalLiquidityUSD ? d.totalLiquidityUSD : 0))
