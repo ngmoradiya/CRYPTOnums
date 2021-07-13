@@ -25,7 +25,7 @@ function Graph() {
         label: "Defi",
         borderColor: "#1dcf94",
         data: graphData
-          .map((d) => (d.totalLiquidityUSD ? d.totalLiquidityUSD / 1000 : 0))
+          .map((d) => (d.totalLiquidityUSD ? d.totalLiquidityUSD : 0))
           .slice(graphData.length - days),
       },
     ],
@@ -77,7 +77,6 @@ function Graph() {
             scales: {
               y: {
                 ticks: {
-                  // Include a dollar sign in the ticks
                   callback: function (value, index, values) {
                     if (value > Billion) {
                       return value / Billion + "B";
