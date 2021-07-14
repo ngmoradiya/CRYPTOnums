@@ -5,21 +5,54 @@ import { Line } from "react-chartjs-2";
 function Graph({ graphData, label }) {
   const [days, setDays] = useState(30);
 
-  const data = {
-    labels: graphData
+  const data = (canvas) => {
+    const ctx = canvas.getContext("2d");
+    const gradient = ctx.createLinearGradient(0, 0, 0, 160);
+    gradient.addColorStop(0, "#48addb");
+    gradient.addColorStop(1, "white");
+
+    const xlabel = graphData
       .map((d) => d.date.split(",")[0])
-      .slice(graphData.length - days),
-    datasets: [
-      {
-        label: label,
-        fill: true,
-        borderColor: "#1dcf94",
-        backgroundColor: "lightgreen",
-        data: graphData
-          .map((d) => (d.totalLiquidityUSD ? d.totalLiquidityUSD : 0))
-          .slice(graphData.length - days),
+      .slice(graphData.length - days);
+
+    const ydata = graphData
+      .map((d) => (d.totalLiquidityUSD ? d.totalLiquidityUSD : 0))
+      .slice(graphData.length - days);
+
+    return {
+      labels: xlabel,
+      datasets: [
+        {
+          label: label,
+          fill: true,
+          borderColor: "#4883db",
+          backgroundColor: gradient,
+          data: ydata,
+        },
+      ],
+    };
+  };
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        ticks: {
+          callback: function (value, index, values) {
+            if (value > Billion) {
+              return value / Billion + "B";
+            } else if (value > Million) {
+              return value / Million + "M";
+            } else if (value > Thousand) {
+              return value / Thousand + "K";
+            } else {
+              return value;
+            }
+          },
+        },
       },
-    ],
+    },
   };
 
   const Billion = 10 ** 9;
@@ -58,32 +91,7 @@ function Graph({ graphData, label }) {
         className="box-shadow-effect"
         style={{ backgroundColor: "white", padding: "15px" }}
       >
-        <Line
-          data={data}
-          width={100}
-          height={200}
-          options={{
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              y: {
-                ticks: {
-                  callback: function (value, index, values) {
-                    if (value > Billion) {
-                      return value / Billion + "B";
-                    } else if (value > Million) {
-                      return value / Million + "M";
-                    } else if (value > Thousand) {
-                      return value / Thousand + "K";
-                    } else {
-                      return value;
-                    }
-                  },
-                },
-              },
-            },
-          }}
-        />
+        <Line data={data} width={100} height={200} options={options} />
       </div>
     </>
   );
