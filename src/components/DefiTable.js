@@ -52,6 +52,7 @@ function DefiTable() {
       return tableData;
     }
   };
+
   useEffect(() => {
     if (tableData.length > 0) {
       let sum = 0;
@@ -77,26 +78,33 @@ function DefiTable() {
       setTotal(sum);
     }
   }, [tableData, setMax, setTotal]);
+
   useEffect(() => {
     axios
-      .get("protocols/")
+      .get("protocols/all")
       .then((data) => {
-        const setData = data.data.map((item, index) => {
-          console.log(typeof item.tvl.toString());
+        const nullRemoved = data.data.filter((item) => item !== null);
+        const setData = nullRemoved.map((item, index) => {
+          // console.log(typeof item.tvl.toString());
           if (item.tvl !== 0) {
             let amount = item.tvl.substring(0, item.tvl.length - 1);
-            console.log(typeof amount);
+            // console.log(typeof amount);
             let tvl = item.tvl.includes("M")
               ? (Number(amount) * 0.001).toFixed(6) + "B"
               : item.tvl.includes("K")
               ? (Number(amount) * 0.000001).toFixed(6) + "B"
               : item.tvl;
-            console.log(tvl);
-            return { ...item, sNo: index + 1, "1day": "null", tvl: tvl };
+            // console.log(tvl);
+            return {
+              ...item,
+              sNo: index + 1,
+              "1day": item.changeInTvl,
+              tvl: tvl,
+            };
           }
-          return { ...item, sNo: index + 1, "1day": "null" };
+          return { ...item, sNo: index + 1, "1day": item.changeInTvl };
         });
-        console.log(setData, "hhh");
+        // console.log(setData, "hhh");
         const sortedData = setData.sort(function (a, b) {
           if (a.tvl !== 0 && b.tvl !== 0)
             return (
@@ -109,7 +117,6 @@ function DefiTable() {
         const finalSet = sortedData.map((item, index) => ({
           ...item,
           sNo: index + 1,
-          "1day": "null",
         }));
 
         setTableData(finalSet);
@@ -118,7 +125,7 @@ function DefiTable() {
   }, [setTableData]);
 
   const filteredData = filterDataDataByCategory(tableData, category);
-  console.log(tableData);
+  // console.log(tableData);
   return (
     <div style={{ overflow: "auto", paddingTop: "10px" }}>
       <MaterialTable data={filteredData} columns={columns} />

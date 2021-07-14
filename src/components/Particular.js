@@ -6,6 +6,7 @@ const Particular = () => {
   const { name } = useParams();
   const [data, setData] = useState([]);
   const [graphData, setGraphData] = useState([]);
+  const [topTenTokens, setTopTenTokens] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -15,6 +16,15 @@ const Particular = () => {
             name.toLowerCase()
         );
         setData(data);
+        // if (data) {
+        const tokens = data.tokensInUsd[data.tokensInUsd.length - 1].tokens;
+        const topTokens = [];
+        for (let x in tokens) topTokens.push([x, tokens[x].toFixed(2)]);
+        topTokens.sort((a, b) => b[1] - a[1]);
+        topTokens.splice(10);
+        setTopTenTokens(topTokens);
+        // console.log(topTokens);
+        // }
 
         const settingData = data.tvl.map((item, index) => ({
           ...item,
@@ -34,37 +44,59 @@ const Particular = () => {
   return (
     <div>
       <Graph graphData={graphData} label={name} />
-      <div className="statsBox" style={{ display: "flex", margin: "20px 0" }}>
-        <div
-          className="box-shadow-effect"
-          style={{ backgroundColor: "white", padding: "15px", flex: "3" }}
-        >
-          <h2>Key Statistics</h2>
-          <p>TOTAL VALUE LOCKED</p>
-          <div className="stats">
-            <span>In USD</span>
-            <span>{inusd}B</span>
+      <div className="container" style={{ margin: "2% 0%", padding: "0px" }}>
+        <div className="row">
+          <div className="col-lg-6">
+            <div
+              className="box-shadow-effect"
+              style={{
+                backgroundColor: "white",
+                padding: "15px",
+                marginBottom: "10px",
+              }}
+            >
+              <h2>Key Statistics</h2>
+              <p>TOTAL VALUE LOCKED</p>
+              <div className="stats">
+                <span>In USD</span>
+                <span>{inusd}B</span>
+              </div>
+              <div className="stats">
+                <span>In ETH</span>
+                <span>30000</span>
+              </div>
+              <div className="stats">
+                <span>In BTC</span>
+                <span>789283773</span>
+              </div>
+              <div className="stats">
+                <span>Category</span>
+                <span>{data.category}</span>
+              </div>
+              {/* </div> */}
+            </div>
           </div>
-          <div className="stats">
-            <span>In ETH</span>
-            <span>30000</span>
+          <div className="col-lg-6">
+            <div
+              className="box-shadow-effect"
+              style={{
+                backgroundColor: "white",
+                padding: "15px",
+              }}
+            >
+              <h2>Top 10 Tokens</h2>
+              {topTenTokens &&
+                topTenTokens.map((item) => {
+                  return (
+                    <div className="stats">
+                      <span>{item[0]}</span>
+                      <span>{item[1]}</span>
+                    </div>
+                  );
+                })}
+            </div>
           </div>
-          <div className="stats">
-            <span>In BTC</span>
-            <span>789283773</span>
-          </div>
-          <div className="stats">
-            <span>Category</span>
-            <span>{data.category}</span>
-          </div>
-        </div>
-        <div style={{ flex: "2" }}>
-          {/* <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-                
-                </div>
-                <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-                
-                </div> */}
+          {/* </div> */}
         </div>
       </div>
       <div
@@ -76,37 +108,6 @@ const Particular = () => {
         </h1>
         <p>{data.description}</p>
       </div>
-      {/* Trending in Lending
-            <div style={{display:"flex"}}>
-
-           
-            <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-               
-            </div>
-            <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-                
-            </div>
-            </div>
-            <div style={{display:"flex"}}>
-
-           
-<div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-   
-</div>
-<div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-  
-</div>
-</div>
-            Aave historical stats
-            <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-              
-            </div>
-            <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-               
-            </div>
-            <div className="box-shadow-effect" style={{ backgroundColor: "white", padding: "15px" }} >
-               
-            </div> */}
     </div>
   );
 };

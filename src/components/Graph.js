@@ -12,7 +12,9 @@ function Graph({ graphData, label }) {
     datasets: [
       {
         label: label,
+        fill: true,
         borderColor: "#1dcf94",
+        backgroundColor: "lightgreen",
         data: graphData
           .map((d) => (d.totalLiquidityUSD ? d.totalLiquidityUSD : 0))
           .slice(graphData.length - days),
