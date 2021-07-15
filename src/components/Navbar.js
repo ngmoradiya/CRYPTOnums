@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.css";
 import { Navbar, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
@@ -9,11 +10,15 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Navbar.Brand
-            href="#CryptoCurrencies"
             className="margin-left-right"
             style={{ paddingTop: "0px" }}
           >
-            <img src="./images/logo.png" height={50} alt="logo.png" />
+            <Link
+              style={{ textDecoration: "none", cursor: "pointer" }}
+              to={"/"}
+            >
+              <img src="./images/logo.png" height={50} alt="logo.png" />
+            </Link>
             <div style={{ fontSize: "15px", marginLeft: "40px" }}>
               Number that make sense
             </div>

@@ -14,14 +14,6 @@
   margin: 2% 0px;
 }
 
-.inputTag {
-  width: 350px;
-  height: 35px;
-  border-radius: 10px;
-  border: gray;
-  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.1);
-}
-
 .card {
   border-radius: 10px;
   box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.1);
@@ -46,11 +38,8 @@
 .btn-day {
   border: none;
   background-color: white;
-
   padding: 0.5rem;
   border-radius: 10px;
-  width: 10rem;
-  margin: 10px;
 }
 
 .active {

@@ -41,11 +41,11 @@ function Graph({ graphData, label }) {
         ticks: {
           callback: function (value, index, values) {
             if (value > Billion) {
-              return value / Billion + "B";
+              return "$" + value / Billion + "B";
             } else if (value > Million) {
-              return value / Million + "M";
+              return "$" + value / Million + "M";
             } else if (value > Thousand) {
-              return value / Thousand + "K";
+              return "$" + value / Thousand + "K";
             } else {
               return value;
             }
@@ -61,37 +61,39 @@ function Graph({ graphData, label }) {
 
   return (
     <>
-      <div className="btn-days">
-        <button
-          className={`btn-day ${days === 30 ? "active" : ""} `}
-          onClick={() => setDays(30)}
-        >
-          30 Days
-        </button>
-        <button
-          className={`btn-day ${days === 60 ? "active" : ""} `}
-          onClick={() => setDays(60)}
-        >
-          60 Days
-        </button>
-        <button
-          className={`btn-day ${days === 365 ? "active" : ""} `}
-          onClick={() => setDays(365)}
-        >
-          1 Year
-        </button>
-        <button
-          className={`btn-day ${days === graphData.length ? "active" : ""} `}
-          onClick={() => setDays(graphData.length)}
-        >
-          All Time
-        </button>
-      </div>
       <div
         className="box-shadow-effect"
         style={{ backgroundColor: "white", padding: "15px" }}
       >
-        <Line data={data} width={100} height={200} options={options} />
+        <div style={{ textAlign: "end" }}>
+          <button
+            className={`btn-day ${days === 30 ? "active" : ""} `}
+            onClick={() => setDays(30)}
+          >
+            30d
+          </button>
+          <button
+            className={`btn-day ${days === 60 ? "active" : ""} `}
+            onClick={() => setDays(60)}
+          >
+            60d
+          </button>
+          <button
+            className={`btn-day ${days === 365 ? "active" : ""} `}
+            onClick={() => setDays(365)}
+          >
+            1y
+          </button>
+          <button
+            className={`btn-day ${days === graphData.length ? "active" : ""} `}
+            onClick={() => setDays(graphData.length)}
+          >
+            all
+          </button>
+        </div>
+        <div>
+          <Line data={data} width={100} height={200} options={options} />
+        </div>
       </div>
     </>
   );

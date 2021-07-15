@@ -38,9 +38,23 @@ function DefiTable() {
     },
     {
       title: "1Day(%)",
-      field: "1day",
+      field: "oneday",
+      render: (rowData) => {
+        const percent = Number(
+          rowData.oneday.substring(0, rowData.oneday.length - 1)
+        );
+        return percent < 0 ? (
+          <div style={{ color: "red" }}>{rowData.oneday}</div>
+        ) : (
+          <div style={{ color: "green" }}>{rowData.oneday}</div>
+        );
+      },
     },
   ];
+
+  const options = {
+    pageSize: 20,
+  };
 
   const filterDataDataByCategory = (tableData, category) => {
     if (category) {
@@ -98,11 +112,11 @@ function DefiTable() {
             return {
               ...item,
               sNo: index + 1,
-              "1day": item.changeInTvl,
+              oneday: item.changeInTvl,
               tvl: tvl,
             };
           }
-          return { ...item, sNo: index + 1, "1day": item.changeInTvl };
+          return { ...item, sNo: index + 1, oneday: item.changeInTvl };
         });
         // console.log(setData, "hhh");
         const sortedData = setData.sort(function (a, b) {
@@ -128,7 +142,12 @@ function DefiTable() {
   // console.log(tableData);
   return (
     <div style={{ overflow: "auto", paddingTop: "10px" }}>
-      <MaterialTable data={filteredData} columns={columns} />
+      <MaterialTable
+        data={filteredData}
+        columns={columns}
+        options={options}
+        title="CryptoNums"
+      />
     </div>
   );
 }
