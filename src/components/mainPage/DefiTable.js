@@ -1,8 +1,8 @@
-import axios from "../axios";
+import axios from "../../axios";
 import React, { useEffect } from "react";
 import MaterialTable from "material-table";
 
-import { useData } from "../contexts/globalState";
+import { useData } from "../../contexts/globalState";
 import { Link } from "react-router-dom";
 function DefiTable() {
   const { setTotal, setMax, category, tableData, setTableData } = useData();

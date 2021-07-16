@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import "./style.css";
+import "../style.css";
 import { Card } from "react-bootstrap";
-import Table from "./DefiTable";
-import { useData } from "../contexts/globalState";
+import { useData } from "../../contexts/globalState";
 
 function Category() {
   const { category, setCategory } = useData();
@@ -112,7 +111,6 @@ function Category() {
             </div>
           </div>
         </div>
-        <Table />
       </div>
     </>
   );

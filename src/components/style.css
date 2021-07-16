@@ -27,6 +27,9 @@
 .box-shadow-effect {
   border-radius: 10px;
   box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+  background-color: white;
+  padding: 15px;
+  margin-bottom: 20px;
 }
 
 .btn-days {
@@ -63,4 +66,21 @@
   .btn-days {
     width: 100%;
   }
+}
+
+.table-curved {
+  background-color: white;
+}
+
+.table-curved th {
+  padding: 10px;
+  border-top: 10px solid #f0f4f5;
+  background-color: blue;
+  color: white;
+}
+
+.table-curved td {
+  padding: 10px;
+  border-bottom: 10px solid #f0f4f5;
+  border-top: 10px solid #f0f4f5;
 }

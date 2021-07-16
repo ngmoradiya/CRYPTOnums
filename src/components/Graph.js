@@ -5,6 +5,8 @@ import { Line } from "react-chartjs-2";
 function Graph({ graphData, label }) {
   const [days, setDays] = useState(30);
 
+  console.log(graphData, "gd");
+
   const data = (canvas) => {
     const ctx = canvas.getContext("2d");
     const gradient = ctx.createLinearGradient(0, 0, 0, 160);
@@ -47,7 +49,7 @@ function Graph({ graphData, label }) {
             } else if (value > Thousand) {
               return "$" + value / Thousand + "K";
             } else {
-              return value;
+              return "$" + value;
             }
           },
         },
@@ -92,7 +94,7 @@ function Graph({ graphData, label }) {
           </button>
         </div>
         <div>
-          <Line data={data} width={100} height={200} options={options} />
+          <Line data={data} height={200} options={options} />
         </div>
       </div>
     </>

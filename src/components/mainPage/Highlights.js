@@ -1,10 +1,10 @@
 import React from "react";
-import "./style.css";
+import "../style.css";
 import { Card } from "react-bootstrap";
-import {useData} from "../contexts/globalState"
+import { useData } from "../../contexts/globalState";
 
 function Highlights() {
-  const {totalValue,maxDetails}= useData();
+  const { totalValue, maxDetails } = useData();
   // console.log(state.totalValue,"aa gaya")
   return (
     <div className="row">
