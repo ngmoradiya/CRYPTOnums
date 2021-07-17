@@ -23,21 +23,22 @@ const Particular = () => {
             name.toLowerCase()
         );
         setData(data);
-        // if (data) {
-        const tokens = data.tokensInUsd[data.tokensInUsd.length - 1].tokens;
-        const topTokens = [];
-        for (let x in tokens) topTokens.push([x, tokens[x].toFixed(2)]);
-        topTokens.sort((a, b) => b[1] - a[1]);
-        topTokens.splice(10);
-        setTopTenTokens(topTokens);
-        // console.log(topTokens);
-        // }
+        if (data && data.tokensInUsd && data.tokensInUsd.length > 0) {
+          const tokens = data.tokensInUsd[data.tokensInUsd.length - 1].tokens;
+          const topTokens = [];
+          for (let x in tokens) topTokens.push([x, tokens[x].toFixed(2)]);
+          topTokens.sort((a, b) => b[1] - a[1]);
+          topTokens.splice(10);
+          setTopTenTokens(topTokens);
+          // console.log(topTokens);
+        }
 
         const settingData = data.tvl.map((item, index) => ({
           ...item,
           date: new Date(data.tvl[index].date * 1000).toLocaleString(),
         }));
 
+        console.log(settingData);
         setGraphData(settingData);
       } catch (error) {
         console.log(error);

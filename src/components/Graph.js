@@ -43,13 +43,13 @@ function Graph({ graphData, label }) {
         ticks: {
           callback: function (value, index, values) {
             if (value > Billion) {
-              return "$" + value / Billion + "B";
+              return "$" + (value / Billion).toFixed(2) + "B";
             } else if (value > Million) {
-              return "$" + value / Million + "M";
+              return "$" + (value / Million).toFixed(2) + "M";
             } else if (value > Thousand) {
-              return "$" + value / Thousand + "K";
+              return "$" + (value / Thousand).toFixed(2) + "K";
             } else {
-              return "$" + value;
+              return "$" + value.toFixed(2);
             }
           },
         },
