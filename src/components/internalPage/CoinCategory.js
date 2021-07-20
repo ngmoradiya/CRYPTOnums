@@ -24,7 +24,7 @@ function CoinCategory() {
           className="box-shadow-effect"
           style={{ border: "none", width: "20%" }}
         >
-          Etherium
+          Ethereum
         </button>
         <button
           className="box-shadow-effect"

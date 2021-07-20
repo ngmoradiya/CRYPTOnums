@@ -5,7 +5,7 @@ import { Line } from "react-chartjs-2";
 function Graph({ graphData, label }) {
   const [days, setDays] = useState(30);
 
-  console.log(graphData, "gd");
+  // console.log(graphData, "gd");
 
   const data = (canvas) => {
     const ctx = canvas.getContext("2d");
@@ -49,7 +49,7 @@ function Graph({ graphData, label }) {
             } else if (value > Thousand) {
               return "$" + (value / Thousand).toFixed(2) + "K";
             } else {
-              return "$" + value.toFixed(2);
+              return "$" + value;
             }
           },
         },
@@ -90,7 +90,7 @@ function Graph({ graphData, label }) {
             className={`btn-day ${days === graphData.length ? "active" : ""} `}
             onClick={() => setDays(graphData.length)}
           >
-            all
+            all time
           </button>
         </div>
         <div>

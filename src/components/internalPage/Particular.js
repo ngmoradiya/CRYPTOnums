@@ -14,6 +14,18 @@ const Particular = () => {
   const [data, setData] = useState([]);
   const [graphData, setGraphData] = useState([]);
   const [topTenTokens, setTopTenTokens] = useState([]);
+  const [btcPrice, setBtcPrice] = useState(-1);
+  const [ethPrice, setEthPrice] = useState(-1);
+
+  useEffect(() => {
+    axios
+      .get("/values")
+      .then((value) => {
+        setBtcPrice(Number(value.data.btcPrice));
+        setEthPrice(Number(value.data.ethPrice));
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -47,17 +59,22 @@ const Particular = () => {
     <>
       <div className="container" style={{ padding: "0px" }}>
         <div className="row">
-          <div className="col-sm-9">
+          <div className="col-md-9">
             <CoinCategory />
-            <Highlights />
+            <Highlights data={data} btcPrice={btcPrice} />
             <Graph graphData={graphData} label={name} />
           </div>
-          <div className="col-sm-3">
+          <div className="col-md-3">
             <Extras />
           </div>
         </div>
       </div>
-      <Stats data={data} topTenTokens={topTenTokens} />
+      <Stats
+        data={data}
+        topTenTokens={topTenTokens}
+        btcPrice={btcPrice}
+        ethPrice={ethPrice}
+      />
       <About data={data} />
       <Table tableData={graphData} />
     </>

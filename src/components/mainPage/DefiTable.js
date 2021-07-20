@@ -27,14 +27,38 @@ function DefiTable() {
     {
       title: "Chain",
       field: "chain",
+      render: (rowData) => (
+        <Link
+          style={{ textDecoration: "none", cursor: "pointer", color: "black" }}
+          to={`/${rowData.name}`}
+        >
+          {rowData.chain}
+        </Link>
+      ),
     },
     {
       title: "Category",
       field: "category",
+      render: (rowData) => (
+        <Link
+          style={{ textDecoration: "none", cursor: "pointer", color: "black" }}
+          to={`/${rowData.name}`}
+        >
+          {rowData.category}
+        </Link>
+      ),
     },
     {
       title: "Locked(USD)",
       field: "tvl",
+      render: (rowData) => (
+        <Link
+          style={{ textDecoration: "none", cursor: "pointer", color: "black" }}
+          to={`/${rowData.name}`}
+        >
+          {rowData.tvl}
+        </Link>
+      ),
     },
     {
       title: "1Day(%)",
@@ -43,10 +67,21 @@ function DefiTable() {
         const percent = Number(
           rowData.oneday.substring(0, rowData.oneday.length - 1)
         );
-        return percent < 0 ? (
-          <div style={{ color: "red" }}>{rowData.oneday}</div>
-        ) : (
-          <div style={{ color: "green" }}>{rowData.oneday}</div>
+        return (
+          <Link
+            style={{
+              textDecoration: "none",
+              cursor: "pointer",
+              color: "black",
+            }}
+            to={`/${rowData.name}`}
+          >
+            {percent < 0 ? (
+              <div style={{ color: "red" }}>{rowData.oneday}</div>
+            ) : (
+              <div style={{ color: "green" }}>{rowData.oneday}</div>
+            )}
+          </Link>
         );
       },
     },

@@ -1,6 +1,10 @@
 import React from "react";
+import Convertor from "../Convertor";
 
-function ParticularHightlights() {
+function ParticularHightlights({ data, btcPrice }) {
+  const usd =
+    Object.keys(data).length > 0 &&
+    data.tvl[data.tvl.length - 1].totalLiquidityUSD;
   return (
     <>
       <div
@@ -12,11 +16,11 @@ function ParticularHightlights() {
       >
         <div>
           Bitcoin At Work
-          <h2>255,549</h2>
+          <h2>{btcPrice > 0 ? (usd / btcPrice).toFixed(0) : null}</h2>
         </div>
         <div>
           USD Value
-          <h2>$8.17B</h2>
+          <h2>${Convertor(usd)}</h2>
         </div>
         <div>
           Wrapped Bitcoin Dominance
