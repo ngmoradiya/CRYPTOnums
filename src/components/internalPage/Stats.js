@@ -1,6 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "../../axios";
 
 function Stats({ data, topTenTokens }) {
+  const [btcPrice, setBtcPrice] = useState(-1);
+  const [ethPrice, setEthPrice] = useState(-1);
+
+  useEffect(() => {
+    axios
+      .get("/values")
+      .then((value) => {
+        setBtcPrice(Number(value.data.btcPrice));
+        setEthPrice(Number(value.data.ethPrice));
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const usd =
+    Object.keys(data).length > 0 &&
+    data.tvl[data.tvl.length - 1].totalLiquidityUSD;
+
   const inusd =
     Object.keys(data).length > 0 &&
     (data.tvl[data.tvl.length - 1].totalLiquidityUSD / 1000000000).toFixed(2);
@@ -19,11 +37,11 @@ function Stats({ data, topTenTokens }) {
               </div>
               <div className="stats">
                 <span>In ETH</span>
-                <span>30000</span>
+                <span>{ethPrice > 0 ? (usd / ethPrice).toFixed(2) : null}</span>
               </div>
               <div className="stats">
                 <span>In BTC</span>
-                <span>789283773</span>
+                <span>{btcPrice > 0 ? (usd / btcPrice).toFixed(2) : null}</span>
               </div>
               <div className="stats">
                 <span>Category</span>

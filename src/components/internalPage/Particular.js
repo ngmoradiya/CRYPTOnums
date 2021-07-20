@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../axios";
 import { useParams } from "react-router-dom";
 import Graph from "../Graph";
 import About from "./About";
@@ -18,10 +18,7 @@ const Particular = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(
-          "https://mighty-sands-89627.herokuapp.com/protocol/" +
-            name.toLowerCase()
-        );
+        const { data } = await axios.get(`protocol/${name.toLowerCase()}`);
         setData(data);
         if (data && data.tokensInUsd && data.tokensInUsd.length > 0) {
           const tokens = data.tokensInUsd[data.tokensInUsd.length - 1].tokens;

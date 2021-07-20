@@ -1,7 +1,7 @@
 import React from "react";
 
 function Extras() {
-  const links = ["link1", "link2", "link3", "link4"];
+  const links = ["link1"];
   const audits = [
     "audit1",
     "audit2",
@@ -11,6 +11,8 @@ function Extras() {
     "audit6",
     "audit7",
     "audit8",
+    "audit9",
+    "audit10",
   ];
 
   return (
