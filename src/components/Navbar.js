@@ -24,7 +24,7 @@ function NavBar() {
             </div>
           </Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link href="#CryptoCurrencies" className="margin-left-right">
+            <Nav.Link href="/rate" className="margin-left-right">
               CryptoCurrencies
             </Nav.Link>
             <Nav.Link href="#DeFi" className="margin-left-right">
